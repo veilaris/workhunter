@@ -1,0 +1,2895 @@
+{
+  "name": "WorkHunter",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -416,
+        0
+      ],
+      "id": "298c8d87-42cd-4fac-9e4e-13923a8f5d7a",
+      "name": "Telegram Trigger",
+      "webhookId": "bd2347bd-06ea-4ab0-bc55-7379e669499f",
+      "credentials": {
+        "telegramApi": {
+          "id": "W0C5E3XW6aleAXbq",
+          "name": "WorkHunter"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "1be80538-359b-460f-bcaf-32a8b15258e7",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/search",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "search"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "3239bfc6-2a43-44e6-931c-2bd4b3261a3d",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/ready",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ready"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "97b7e344-f0d7-4104-bfed-1eac57ce439f",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/update_preferences",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "update_preferences"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "559cd495-0541-4242-a81c-a51db63d69c3",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/update_resume",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "update_resume"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/start",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "3e57367d-6748-475a-9a21-44fa541a5618"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "start"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "36bde177-a11b-4f9d-a218-b0d455c83ff4",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/help",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "help"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        144,
+        -16
+      ],
+      "id": "adc32f17-7d9e-433a-bf5f-463a85e771f2",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "=Привет! Я WorkHunter — твой личный проводник в мир корпоративного рабства.\n\nПервым делом заполни форму по ссылке ниже. Расскажи, кем хочешь стать, когда вырастешь, и сколько денег хочешь получать за то, что будешь делать вид, что работаешь.\n\nYOUR_GOOGLE_FORM_PREFILL_URL&entry.YOUR_ENTRY_ID={{$json.message.chat.id}}\n\nКак заполнишь — жми /ready. Или не жми — мне-то что...",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        672,
+        1152
+      ],
+      "id": "27a40e90-2f38-4760-9511-8aff58ca29fa",
+      "name": "Send a text message",
+      "webhookId": "0873d1a3-b747-4510-b5a4-eb8df047ef49",
+      "credentials": {
+        "telegramApi": {
+          "id": "W0C5E3XW6aleAXbq",
+          "name": "WorkHunter"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const binaryData = await this.helpers.getBinaryDataBuffer(0, 'data');\nconst text = binaryData.toString('utf-8');\n\nreturn [{ json: { resume_text: text } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        -464
+      ],
+      "id": "e178c9a1-7ba4-4d63-b23d-d3c496fb768f",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "5KJWjqKvU8QiQp8x",
+          "mode": "list",
+          "cachedResultName": "WorkHunter",
+          "cachedResultUrl": "/projects/Vg6Q7UINLVDtdpRr/datatables/5KJWjqKvU8QiQp8x"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "chat_id",
+              "keyValue": "={{ $('Telegram Trigger').item.json.message.from.id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        512,
+        -32
+      ],
+      "id": "adb37980-5258-4c10-9a34-a370cc817368",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "7dc029ee-8d0b-46cc-b2b5-ff8ba426c71a",
+              "leftValue": "={{ $json.message.document.file_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -160,
+        0
+      ],
+      "id": "12e2e17f-6089-48e6-84cb-65a261d34995",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\n\nconst employmentMap = {\n  \"Полная занятость\": \"full\",\n  \"Частичная занятость\": \"part\",\n  \"Подработка\": \"probation\",\n  \"Вахта\": \"volunteer\",\n  \"Стажировка\": \"contractor\"\n};\nconst scheduleMap = {\n  \"На месте работодателя\": \"fullDay\",\n  \"Удалённо\": \"remote\",\n  \"Гибрид\": \"flexible\",\n  \"Разъездной\": \"flyInFlyOut\"\n};\nconst searchFieldMap = {\n  \"В названии вакансии\": \"name\",\n  \"В описании вакансии\": \"description\",\n  \"В названии компании\": \"company_name\"\n};\n\nconst search_queries = data.search_queries.split(\"\\n\").filter(x => x.trim() !== \"\");\nconst exclude_words = data.exclude_words.split(\"\\n\").filter(x => x.trim() !== \"\");\nconst exclude_part = exclude_words.map(w => `NOT ${w}`).join(\" \");\nconst text = search_queries.map(q => `(${q} ${exclude_part})`).join(\" OR \");\n\nconst employment = data.employment.split(\", \").map(x => employmentMap[x.trim()]).filter(Boolean);\nconst schedule = data.schedule.split(\", \").map(x => scheduleMap[x.trim()]).filter(Boolean);\nconst search_field = data.search_field.split(\", \").map(x => searchFieldMap[x.trim()]).filter(Boolean);\n\nconst parts = [];\nparts.push(`text=${encodeURIComponent(text)}`);\nparts.push(`per_page=100`);\nparts.push(`only_with_salary=${data.only_with_salary === \"Да\"}`);\n\nemployment.forEach(v => parts.push(`employment=${v}`));\nschedule.forEach(v => parts.push(`schedule=${v}`));\nsearch_field.forEach(v => parts.push(`search_field=${v}`));\n\nif (data.salary_min && data.salary_min !== \"0\") {\n  parts.push(`salary=${data.salary_min}`);\n}\n\nreturn [{\n  json: {\n    chat_id: data.chat_id,\n    url: `https://api.hh.ru/vacancies?${parts.join('&')}`\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        656,
+        -32
+      ],
+      "id": "a9b41e3f-bf86-4ea2-a1b0-afb46f068954",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "pagination": {
+            "pagination": {
+              "parameters": {
+                "parameters": [
+                  {
+                    "name": "page",
+                    "value": "={{ $pageCount }}"
+                  }
+                ]
+              },
+              "limitPagesFetched": true,
+              "maxRequests": 10
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        864,
+        -32
+      ],
+      "id": "d183a36f-e1fb-4b43-b530-8f5fa694fa2b",
+      "name": "HTTP Request5",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "UtRhvd8TUsWLSfiL",
+          "name": "hh_cred"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "items",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        -32
+      ],
+      "id": "c05dbe60-2809-4dd6-9720-0ad9dcda22ab",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.hh.ru/vacancies/{{ $('Split Out').item.json.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1696,
+        -48
+      ],
+      "id": "166916fb-08df-4037-a805-f18131c42f49",
+      "name": "HTTP Request6",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "UtRhvd8TUsWLSfiL",
+          "name": "hh_cred"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "Bafa8br7E4HuPkdN",
+          "mode": "list",
+          "cachedResultName": "WorkHunter/vacancy",
+          "cachedResultUrl": "/projects/Vg6Q7UINLVDtdpRr/datatables/Bafa8br7E4HuPkdN"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "match": false,
+            "chat_id": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+            "vacancy_id": "={{ $json.id }}",
+            "name": "={{ $json.name }}",
+            "description": "={{ $json.description }}",
+            "url": "={{ $json.alternate_url }}",
+            "score": 0
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "vacancy_id",
+              "displayName": "vacancy_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "score",
+              "displayName": "score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "match",
+              "displayName": "match",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1872,
+        -48
+      ],
+      "id": "a6038676-652f-4879-b52a-acdd0f6e7e8b",
+      "name": "Insert row3"
+    },
+    {
+      "parameters": {
+        "content": "## Взятие пожеланий пользователя из Forms и преобразование в корректный формат",
+        "height": 384,
+        "width": 304,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        496,
+        -208
+      ],
+      "id": "95ebfcdc-7699-4204-850c-1cea83a7d7a3",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "5KJWjqKvU8QiQp8x",
+          "mode": "list",
+          "cachedResultName": "WorkHunter/resume",
+          "cachedResultUrl": "/projects/Vg6Q7UINLVDtdpRr/datatables/5KJWjqKvU8QiQp8x"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "chat_id",
+              "keyValue": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "resume_text": "={{ $json.resume_text }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "search_queries",
+              "displayName": "search_queries",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "exclude_words",
+              "displayName": "exclude_words",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "search_field",
+              "displayName": "search_field",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "salary_min",
+              "displayName": "salary_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "schedule",
+              "displayName": "schedule",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "employment",
+              "displayName": "employment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "only_with_salary",
+              "displayName": "only_with_salary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "resume_text",
+              "displayName": "resume_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        608,
+        -464
+      ],
+      "id": "9156bdad-2922-4a6e-999a-3bc76d2d1716",
+      "name": "Update row(s)"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "5KJWjqKvU8QiQp8x",
+          "mode": "list",
+          "cachedResultName": "WorkHunter/resume",
+          "cachedResultUrl": "/projects/Vg6Q7UINLVDtdpRr/datatables/5KJWjqKvU8QiQp8x"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "chat_id",
+              "keyValue": "={{ $('Telegram Trigger').item.json.message.from.id }}"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2048,
+        -48
+      ],
+      "id": "2aad374a-960e-47b2-8bce-5384fd061997",
+      "name": "Get row(s)1"
+    },
+    {
+      "parameters": {
+        "content": "## Сравнение резюме и вакансии\n\n1) Получаем резюме по ChatID\n2) Отправляем в LLM\n\n",
+        "height": 800,
+        "width": 1028,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1648,
+        -208
+      ],
+      "id": "16d4b3d6-ad83-4b0d-b985-19cb275d4ad6",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "operation": "rowNotExists",
+        "dataTableId": {
+          "__rl": true,
+          "value": "Bafa8br7E4HuPkdN",
+          "mode": "list",
+          "cachedResultName": "WorkHunter/vacancy",
+          "cachedResultUrl": "/projects/Vg6Q7UINLVDtdpRr/datatables/Bafa8br7E4HuPkdN"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "vacancy_id",
+              "keyValue": "={{ $json.id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1216,
+        -32
+      ],
+      "id": "889d8911-0f86-4b26-84d0-befa9db5ff3b",
+      "name": "If row does not exist",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "Bafa8br7E4HuPkdN",
+          "mode": "list",
+          "cachedResultName": "WorkHunter/vacancy",
+          "cachedResultUrl": "/projects/Vg6Q7UINLVDtdpRr/datatables/Bafa8br7E4HuPkdN"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "vacancy_id",
+              "keyValue": "={{ $json.output.vacancy_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "match": "={{ $json.output.match }}",
+            "score": "={{ $json.output.score }}",
+            "reason": "={{ $json.output.reason }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "vacancy_id",
+              "displayName": "vacancy_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "score",
+              "displayName": "score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "match",
+              "displayName": "match",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "reason",
+              "displayName": "reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2752,
+        -64
+      ],
+      "id": "6d1e638e-b9fd-4575-b86f-aa4a40f29753",
+      "name": "Update row(s)1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "d5ad0119-6079-45f4-97c9-15e719d7af40",
+              "leftValue": "={{ $json.match }}",
+              "rightValue": false,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2944,
+        -64
+      ],
+      "id": "72009bc9-e06c-43a1-bb35-9ab071de40be",
+      "name": "If1",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "=Подходящая вакансия\nНазвание: {{ $('If1').item.json.name }}\nМетч: {{ $('If1').item.json.score }}\nСсылка: {{ $('If1').item.json.url }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3376,
+        48
+      ],
+      "id": "89075d7b-ed55-44d2-ba5f-73a32b9552d1",
+      "name": "Send a text message2",
+      "webhookId": "00a4648c-3e12-45cf-97de-96a03038fefa",
+      "credentials": {
+        "telegramApi": {
+          "id": "W0C5E3XW6aleAXbq",
+          "name": "WorkHunter"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Проверка, является ли сообщение от пользователя документом",
+        "height": 400,
+        "width": 320
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        -160
+      ],
+      "id": "ef2f9343-065b-4a90-ba9e-0f546cb9fe69",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "## Обработка приложенного резюме в txt, запись информации из него в таблицу, логирование",
+        "height": 240,
+        "width": 896,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        144,
+        -544
+      ],
+      "id": "a4202f0d-cc24-4e56-9a44-f9fda730d851",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "=Окей, раз ты не можешь запомнить три кнопки, вот список того, что я умею:\n\n/start — начать работу (заполнить форму и скинуть резюме)\n/search — искать вакансии на HH.ru (только релевантные, остальное говно фильтрую)\n/update_resume — обновить резюме (когда вдруг научился чему-то новому)\n/update_preferences — изменить настройки поиска (зарплату, формат работы и прочее)\n/help — эта команда, которую ты только что использовал\n\nЧто я НЕ умею:\n- Мотивировать тебя\n- Объяснять, почему тебя не берут на работу\n- Находить смысл жизни\n- Договариваться с работодателями\n\nЯ просто бот. Ищу вакансии, фильтрую мусор, присылаю результат. Всё остальное — твои проблемы.\n\nУдачи в поисках. Или не удачи — мне всё равно.",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        672,
+        1328
+      ],
+      "id": "8b619610-8b1b-49ea-a280-c8063d31b7e4",
+      "name": "Send a text message3",
+      "webhookId": "0873d1a3-b747-4510-b5a4-eb8df047ef49",
+      "credentials": {
+        "telegramApi": {
+          "id": "W0C5E3XW6aleAXbq",
+          "name": "WorkHunter"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "=Я не понял, что ты хочешь. Доступные команды:\n\n/search — искать вакансии\n/update_resume — обновить резюме  \n/update_preferences — изменить настройки поиска\n\nЕсли это была попытка пообщаться по душам — извини, я бот. У меня нет души.",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        672,
+        1504
+      ],
+      "id": "77aa153d-9779-4558-987b-bacb8a9cbf0c",
+      "name": "Send a text message4",
+      "webhookId": "0873d1a3-b747-4510-b5a4-eb8df047ef49",
+      "credentials": {
+        "telegramApi": {
+          "id": "W0C5E3XW6aleAXbq",
+          "name": "WorkHunter"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Быстрые ответы\n**/start** - отправка приветственного сообщения, просьба заполнить Google Forms. Также вставляем chat_id в таблицу resume\n**/help** - вызов справки\n**/update_resume** - обновить резюме  \n**/update_preferences** - изменить настройки поиска\n",
+        "height": 1040,
+        "width": 832,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        624,
+        656
+      ],
+      "id": "ae4e83b4-644d-4d1e-b107-d3c8389e73f4",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Ты — рекрутинговый ассистент. Оцени соответствие кандидата вакансии.\nРЕЗЮМЕ:\n{{ $json.resume_text }}\n\nВАКАНСИЯ:\n{{ $('Insert row3').item.json.description }}\n\n---\n\nПРАВИЛА ОЦЕНКИ:\n\n1. Если в вакансии есть жёсткое техническое требование которое явно отсутствует в резюме И не может логически вытекать из имеющегося опыта — score: 0, match: false.\n\n2. Не штрафуй за отсутствие базовых навыков которые логично вытекают из опыта кандидата. Например, если человек работал с API — не требуй чтобы он отдельно упомянул REST.\n\n3. Оценивай по шкале:\n- 90-100: идеальное попадание\n- 70-89: хорошее соответствие, небольшие пробелы\n- 50-69: частичное соответствие\n- 0-49: слабое соответствие\n\nmatch: true если score >= 60, иначе false.\n\n---\n\nВерни ТОЛЬКО валидный JSON без какого-либо текста до или после, без markdown, без пояснений:\n\n{\"vacancy_id\": {{ $('Insert row3').item.json.vacancy_id }}, \"match\": true/false, \"score\": 0-100, \"reason\": \"2 предложения: главное совпадение и главный пробел\"}\n\n\nЕсли ты не можешь оценить соответствие (не хватает данных, текст вакансии битый, и т.п.) — верни:\n{\"vacancy_id\": {{ $('Insert row3').item.json.vacancy_id }}, \"match\": false, \"score\": 0, \"reason\": \"Недостаточно данных для оценки. [конкретная причина]\"}\n\nНЕ возвращай пустой ответ. НЕ возвращай 'не знаю'. Всегда возвращай валидный JSON по схеме.",
+        "hasOutputParser": true,
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        2208,
+        -48
+      ],
+      "id": "c89385ba-2ca2-4b1e-9530-40390ff962ea",
+      "name": "Basic LLM Chain2",
+      "retryOnFail": true,
+      "waitBetweenTries": 3000,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": "google/gemini-3.1-pro-preview",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        2208,
+        128
+      ],
+      "id": "af3db4ff-2d62-4c3b-ab3b-137292ac3881",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "MCnSM3CZQBR3ADjF",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Обработка заполненной Google Forms",
+        "height": 240,
+        "width": 992,
+        "color": "#BFEDEC"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        624,
+        400
+      ],
+      "id": "5bcf2764-4c7b-41b4-8b0a-db5997f6598c",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "eb943b94-4976-4db4-aa7b-cbd0d7e203f7",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1424,
+        -32
+      ],
+      "id": "5bf8e0ea-e1cb-4042-9df9-3f48c1c52bf7",
+      "name": "If4"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=Поиск завершён. Новых вакансий не найдено.\n\nЛибо рынок труда в коме, либо ты слишком крутой специалист. Скорее всего, первое.\n\nПопробуй ещё раз через пару часов: /search",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1216,
+        208
+      ],
+      "id": "26226c67-d02c-4c99-93d7-f406d1ebde5c",
+      "name": "Send a text message5",
+      "webhookId": "0873d1a3-b747-4510-b5a4-eb8df047ef49",
+      "credentials": {
+        "telegramApi": {
+          "id": "W0C5E3XW6aleAXbq",
+          "name": "WorkHunter"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Запись результатов в таблицу, отправка сообщения пользователю и логирование\n\n1) Записываем score и match в таблицу вакансий\n2) Отправляем пользователю все вакансии, у которых match = True. Если таких нет - отправляем соответствующее сообщение\n3) Записываем в лог\n",
+        "height": 576,
+        "width": 1316,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2704,
+        -208
+      ],
+      "id": "639fb071-82fd-43f8-9afe-12b86368ff1d",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "=Поиск завершён. Нашёл несколько вакансий, но все они — не про тебя.\n\nЛибо ты завысил требования, либо работодатели совсем оборзели. Вероятно, и то, и другое.\n\nМожешь попробовать /update_preferences и снизить планку — или просто смириться с реальностью.\n\n",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3376,
+        192
+      ],
+      "id": "ad6ed2ed-c846-43f0-bcfd-fc8d67408fe2",
+      "name": "Send a text message6",
+      "webhookId": "00a4648c-3e12-45cf-97de-96a03038fefa",
+      "executeOnce": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "W0C5E3XW6aleAXbq",
+          "name": "WorkHunter"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "6HwbwX4vYV2MacRT",
+          "mode": "list",
+          "cachedResultName": "WorkHunter/logs",
+          "cachedResultUrl": "/projects/Vg6Q7UINLVDtdpRr/datatables/6HwbwX4vYV2MacRT"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chat_id": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+            "action": "={{ $('Switch').first().json.message.text }}",
+            "status": "success",
+            "details": "=Отправлено {{ $input.all().length }} вакансий"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "action",
+              "displayName": "action",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "details",
+              "displayName": "details",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        3536,
+        48
+      ],
+      "id": "80713259-358d-4448-9d6d-b2fc0c3d6ed1",
+      "name": "Insert row2",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "6HwbwX4vYV2MacRT",
+          "mode": "list",
+          "cachedResultName": "WorkHunter/logs",
+          "cachedResultUrl": "/projects/Vg6Q7UINLVDtdpRr/datatables/6HwbwX4vYV2MacRT"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chat_id": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+            "action": "={{ $('Switch').item.json.message.text }}",
+            "status": "success",
+            "details": "Подходящих вакансий не найдено"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "action",
+              "displayName": "action",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "details",
+              "displayName": "details",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        3536,
+        192
+      ],
+      "id": "082333ea-8bf7-40fc-9d5d-4210c84a94aa",
+      "name": "Insert row4",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "6HwbwX4vYV2MacRT",
+          "mode": "list",
+          "cachedResultName": "WorkHunter/logs",
+          "cachedResultUrl": "/projects/Vg6Q7UINLVDtdpRr/datatables/6HwbwX4vYV2MacRT"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chat_id": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+            "action": "={{ $('Switch').item.json.message.text }}",
+            "details": "=Не удалось сравнить вакансию: {{ $('If row does not exist').item.json.name }} \nСсылка на вакансию: {{ $('If row does not exist').item.json.alternate_url }}",
+            "status": "error"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "action",
+              "displayName": "action",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "details",
+              "displayName": "details",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2496,
+        128
+      ],
+      "id": "cfd86a54-fd39-4197-a010-d006e2321ff0",
+      "name": "Insert row5"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "6HwbwX4vYV2MacRT",
+          "mode": "list",
+          "cachedResultName": "WorkHunter/logs",
+          "cachedResultUrl": "/projects/Vg6Q7UINLVDtdpRr/datatables/6HwbwX4vYV2MacRT"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chat_id": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+            "action": "={{ $('Switch').item.json.message.text }}",
+            "status": "success",
+            "details": "=Новых вакансий не найдено."
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "action",
+              "displayName": "action",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "details",
+              "displayName": "details",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1392,
+        208
+      ],
+      "id": "d91eb482-1ec2-43eb-b53e-1295f6b46c7f",
+      "name": "Insert row6"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "6HwbwX4vYV2MacRT",
+          "mode": "list",
+          "cachedResultName": "WorkHunter/logs",
+          "cachedResultUrl": "/projects/Vg6Q7UINLVDtdpRr/datatables/6HwbwX4vYV2MacRT"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chat_id": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+            "action": "={{ $('Switch').item.json.message.text }}",
+            "status": "success",
+            "details": "="
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "action",
+              "displayName": "action",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "details",
+              "displayName": "details",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1072,
+        1152
+      ],
+      "id": "bfc9a7da-ac13-4956-ba69-0c47da27e1c4",
+      "name": "Insert row7"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "6HwbwX4vYV2MacRT",
+          "mode": "list",
+          "cachedResultName": "WorkHunter/logs",
+          "cachedResultUrl": "/projects/Vg6Q7UINLVDtdpRr/datatables/6HwbwX4vYV2MacRT"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chat_id": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+            "action": "={{ $('Switch').item.json.message.text }}",
+            "status": "success",
+            "details": "="
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "action",
+              "displayName": "action",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "details",
+              "displayName": "details",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        864,
+        1328
+      ],
+      "id": "42603307-f2d7-430e-898a-ef567868afbf",
+      "name": "Insert row8"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "6HwbwX4vYV2MacRT",
+          "mode": "list",
+          "cachedResultName": "WorkHunter/logs",
+          "cachedResultUrl": "/projects/Vg6Q7UINLVDtdpRr/datatables/6HwbwX4vYV2MacRT"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chat_id": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+            "action": "={{ $('Switch').item.json.message.text }}",
+            "status": "success",
+            "details": "="
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "action",
+              "displayName": "action",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "details",
+              "displayName": "details",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        864,
+        1504
+      ],
+      "id": "8d5814bc-eae6-4dc4-beae-d535e7d20fa2",
+      "name": "Insert row9"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=Сохранил. Теперь у меня есть всё, чтобы продать тебя подороже на рынке труда.\n\nЧто дальше:\n/search — искать вакансии (буду сканировать HH.ru и присылать только релевантные. В первый раз это может занять много времени)\n/update_resume — обновить резюме (если вдруг научился чему-то новому или просто приврал)\n/update_preferences — изменить ответы в форме (передумал насчёт зарплаты или готов работать в офисе)\n\nЕсли хочешь познать смысл жизни — не жми вообще ничего.",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        816,
+        -464
+      ],
+      "id": "21859c68-101f-412e-90f8-db3e7c96cee1",
+      "name": "Send a text message7",
+      "webhookId": "0873d1a3-b747-4510-b5a4-eb8df047ef49",
+      "credentials": {
+        "telegramApi": {
+          "id": "W0C5E3XW6aleAXbq",
+          "name": "WorkHunter"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "=Хочешь обновить резюме? Окей.\n\nСкинь новый файл в формате .txt или .docx. Старое резюме сотру без сожалений — надеюсь, ты не забыл добавить туда что-то новое, а не просто поменял шрифт.\n\nЖду файл 👇",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        672,
+        976
+      ],
+      "id": "2383e842-9eb4-429d-b1b7-850d819312c4",
+      "name": "Send a text message8",
+      "webhookId": "0873d1a3-b747-4510-b5a4-eb8df047ef49",
+      "credentials": {
+        "telegramApi": {
+          "id": "W0C5E3XW6aleAXbq",
+          "name": "WorkHunter"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "6HwbwX4vYV2MacRT",
+          "mode": "list",
+          "cachedResultName": "WorkHunter/logs",
+          "cachedResultUrl": "/projects/Vg6Q7UINLVDtdpRr/datatables/6HwbwX4vYV2MacRT"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chat_id": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+            "action": "={{ $('Switch').item.json.message.text }}",
+            "status": "success",
+            "details": "="
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "action",
+              "displayName": "action",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "details",
+              "displayName": "details",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        864,
+        976
+      ],
+      "id": "95081e3c-9e77-4ba2-88b2-57b6e16a0fdc",
+      "name": "Insert row10"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "6HwbwX4vYV2MacRT",
+          "mode": "list",
+          "cachedResultName": "WorkHunter/logs",
+          "cachedResultUrl": "/projects/Vg6Q7UINLVDtdpRr/datatables/6HwbwX4vYV2MacRT"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chat_id": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+            "action": "={{ $('Switch').item.json.message.text }}",
+            "status": "success",
+            "details": "="
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "action",
+              "displayName": "action",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "details",
+              "displayName": "details",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        864,
+        800
+      ],
+      "id": "3dd7a9e8-fe44-4c10-81cd-81cff4ade6d6",
+      "name": "Insert row11"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "=Передумал, где хочешь работать и за сколько продаваться? Бывает.\n\nЗаполни форму заново по ссылке ниже:\nYOUR_GOOGLE_FORM_PREFILL_URL&entry.YOUR_ENTRY_ID={{$json.message.chat.id}}\n\nКак заполнишь — жми /ready\n\nЕсли передумал работать вообще — я пойму.",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        672,
+        800
+      ],
+      "id": "ad41d45f-5119-4e76-8cf7-bccc40e7651d",
+      "name": "Send a text message9",
+      "webhookId": "0873d1a3-b747-4510-b5a4-eb8df047ef49",
+      "credentials": {
+        "telegramApi": {
+          "id": "W0C5E3XW6aleAXbq",
+          "name": "WorkHunter"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "5KJWjqKvU8QiQp8x",
+          "mode": "list",
+          "cachedResultName": "WorkHunter/resume",
+          "cachedResultUrl": "/projects/Vg6Q7UINLVDtdpRr/datatables/5KJWjqKvU8QiQp8x"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chat_id": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "search_queries",
+              "displayName": "search_queries",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "exclude_words",
+              "displayName": "exclude_words",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "search_field",
+              "displayName": "search_field",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "salary_min",
+              "displayName": "salary_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "schedule",
+              "displayName": "schedule",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "employment",
+              "displayName": "employment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "only_with_salary",
+              "displayName": "only_with_salary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "resume_text",
+              "displayName": "resume_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        864,
+        1152
+      ],
+      "id": "ed09f397-ac85-4b73-81af-ca61bbe86be3",
+      "name": "Insert row"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1iV1okEmjLKHHQvz5noIOyBK-vvlD7DDHByz5M0lYacU",
+          "mode": "list",
+          "cachedResultName": "Forms",
+          "cachedResultUrl": "YOUR_GOOGLE_SHEET_URL"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 616273851,
+          "mode": "list",
+          "cachedResultName": "Ответы на форму (1)",
+          "cachedResultUrl": "YOUR_GOOGLE_SHEET_URL"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Ваш Telegram ID ",
+              "lookupValue": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        672,
+        480
+      ],
+      "id": "a63a83dd-c88e-4972-baf9-1451f9a919cf",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "q4Czx5nayjE607t8",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\n// Функция парсинга даты DD.MM.YYYY HH:MM:SS\nfunction parseRussianDate(dateStr) {\n  const [datePart, timePart] = dateStr.split(' ');\n  const [day, month, year] = datePart.split('.');\n  const [hour, minute, second] = timePart.split(':');\n  \n  // Месяцы в JS начинаются с 0\n  return new Date(year, month - 1, day, hour, minute, second);\n}\n\n// Сортируем по времени (новые первыми)\nitems.sort((a, b) => {\n  const timeA = parseRussianDate(a.json['Отметка времени']);\n  const timeB = parseRussianDate(b.json['Отметка времени']);\n  return timeB - timeA; // descending\n});\n\n// Возвращаем только первый (самый новый)\nreturn [items[0]];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        848,
+        480
+      ],
+      "id": "3e93f64d-e1e4-4972-a6cd-d82ef7d301fd",
+      "name": "Code in JavaScript4"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "5KJWjqKvU8QiQp8x",
+          "mode": "list",
+          "cachedResultName": "WorkHunter/resume",
+          "cachedResultUrl": "/projects/Vg6Q7UINLVDtdpRr/datatables/5KJWjqKvU8QiQp8x"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "chat_id",
+              "keyValue": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "only_with_salary": "={{ $json['Показывать только вакансии где зарплата указана?  '] }}",
+            "search_queries": "={{ $json['По каким запросам искать?'] }}",
+            "exclude_words": "={{ $json['Какие запросы фильтровать?'] }}",
+            "salary_min": "={{ $json['Минимально приемлемая зарплата?'] }}",
+            "search_field": "={{ $json['Где искать эти запросы?  '] }}",
+            "schedule": "={{ $json['Формат работы'] }}",
+            "employment": "={{ $json['Тип занятости'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "search_queries",
+              "displayName": "search_queries",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "exclude_words",
+              "displayName": "exclude_words",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "search_field",
+              "displayName": "search_field",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "salary_min",
+              "displayName": "salary_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "schedule",
+              "displayName": "schedule",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "employment",
+              "displayName": "employment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "only_with_salary",
+              "displayName": "only_with_salary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1040,
+        480
+      ],
+      "id": "4cac204b-42e2-4ac1-aa5c-087174df9030",
+      "name": "Update row(s)3"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "6HwbwX4vYV2MacRT",
+          "mode": "list",
+          "cachedResultName": "WorkHunter/logs",
+          "cachedResultUrl": "/projects/Vg6Q7UINLVDtdpRr/datatables/6HwbwX4vYV2MacRT"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chat_id": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+            "action": "={{ $('Switch').item.json.message.text }}",
+            "status": "success",
+            "details": "=Анкета успешно загружена."
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "chat_id",
+              "displayName": "chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "action",
+              "displayName": "action",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "details",
+              "displayName": "details",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1424,
+        480
+      ],
+      "id": "af23ad48-6cec-4090-bd39-14a7a0c84786",
+      "name": "Insert row12"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=Отлично, анкету принял. Теперь скинь резюме в формате .txt.\n\nЛичные данные (телефон, адрес, девичью фамилию мамы) лучше удали — я, конечно, не жидорептилоид, но сервера стоят в облаке, а там всякое бывает.\n\nЕсли уже загружал резюме и не хочешь обновлять — можешь сразу перейти к поиску вакансий /search\n\nЖду файл 👇",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1232,
+        480
+      ],
+      "id": "e31ed051-d6b7-4e54-8fd3-9a2ec0492485",
+      "name": "Send a text message1",
+      "webhookId": "0873d1a3-b747-4510-b5a4-eb8df047ef49",
+      "credentials": {
+        "telegramApi": {
+          "id": "W0C5E3XW6aleAXbq",
+          "name": "WorkHunter"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $json.message.document.file_id }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        176,
+        -464
+      ],
+      "id": "7504d03a-2447-4221-bb46-062aa7bf32f6",
+      "name": "Get a file",
+      "webhookId": "e626f3f9-aa66-4f2f-8d03-302e17187882",
+      "credentials": {
+        "telegramApi": {
+          "id": "W0C5E3XW6aleAXbq",
+          "name": "WorkHunter"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "=Нашёл несколько вакансий, где тебя, возможно, не сразу выгонят:",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3376,
+        -80
+      ],
+      "id": "81101224-30f1-418c-8613-74cfb25ea810",
+      "name": "Send a text message10",
+      "webhookId": "00a4648c-3e12-45cf-97de-96a03038fefa",
+      "executeOnce": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "W0C5E3XW6aleAXbq",
+          "name": "WorkHunter"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3168,
+        48
+      ],
+      "id": "4cc2c142-fc8c-4455-8cf7-989ecc896ac5",
+      "name": "Wait",
+      "webhookId": "3aaa467a-e403-40cf-8c6e-84ae4003ea8a"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"vacancy_id\": 111111111,\n  \"match\": true,\n  \"score\": 85,\n  \"reason\": \"Кандидат соответствует требованиям по Python и работе с LLM. Не хватает опыта с RAG и LangChain, что критично для роли.\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        2352,
+        128
+      ],
+      "id": "4a819c20-0a3f-4334-b66a-e52910e62ff6",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "content": "## Запрос вакансий по API HeadHunter. \n**Если вакансии еще не существует в таблице - делаем запрос конкретно по ней и записываем данные в таблицу.**",
+        "height": 576,
+        "width": 784,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        832,
+        -208
+      ],
+      "id": "d3d91c47-20de-4900-9945-9c2f8b5d27fc",
+      "name": "Sticky Note11"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "8f3c6a7d-b720-49a2-a1da-90549c1cb09f",
+              "leftValue": "={{ $('If1').all(0).length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        3168,
+        192
+      ],
+      "id": "f74cb8e1-b7a6-4751-83ed-fbdd049aa4d4",
+      "name": "Filter"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message9",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message8",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Update row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Get a file",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request5": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "If row does not exist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request6": {
+      "main": [
+        [
+          {
+            "node": "Insert row3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row(s)": {
+      "main": [
+        [
+          {
+            "node": "Send a text message7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert row3": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)1": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If row does not exist": {
+      "main": [
+        [
+          {
+            "node": "If4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row(s)1": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message10",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain2": {
+      "main": [
+        [
+          {
+            "node": "Update row(s)1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Insert row5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If4": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message2": {
+      "main": [
+        [
+          {
+            "node": "Insert row2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message6": {
+      "main": [
+        [
+          {
+            "node": "Insert row4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message5": {
+      "main": [
+        [
+          {
+            "node": "Insert row6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message3": {
+      "main": [
+        [
+          {
+            "node": "Insert row8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message4": {
+      "main": [
+        [
+          {
+            "node": "Insert row9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message8": {
+      "main": [
+        [
+          {
+            "node": "Insert row10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message9": {
+      "main": [
+        [
+          {
+            "node": "Insert row11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert row": {
+      "main": [
+        [
+          {
+            "node": "Insert row7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript4": {
+      "main": [
+        [
+          {
+            "node": "Update row(s)3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row(s)3": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message1": {
+      "main": [
+        [
+          {
+            "node": "Insert row12",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a file": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message10": {
+      "main": [
+        []
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Send a text message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Basic LLM Chain2",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Send a text message6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "2770bc3e-a84e-40f4-93dd-9b3f675ab2c4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "HI268wfRmh5AkpaE",
+  "tags": []
+}
